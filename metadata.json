@@ -1,0 +1,20 @@
+{
+  "KPlugin": {
+    "Name": "Zoom Keys",
+    "Description": "hot keys to launch/switch to apps",
+    "Icon": "preferences-system-windows",
+    "Authors": [
+      {
+        "Email": "karasirarichard250@gmail.com",
+        "Name": "Karasira Richard"
+      }
+    ],
+    "Id": "ZoomKeys",
+    "Version": "0.1",
+    "License": "GPLv3",
+    "Website": "https://github.com/bladevalor/ZoomKeys"
+  },
+  "X-Plasma-API": "javascript",
+  "X-Plasma-MainScript": "code/main.js",
+  "KPackageStructure": "KWin/Script"
+}
