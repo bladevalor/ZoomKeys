@@ -1,0 +1,43 @@
+[
+  {
+    "name": "firefox",
+    "desc": "Firefox browser shortcut",
+    "keymap": [
+      "alt",
+      "f"
+    ]
+  },
+  {
+    "name": "vivaldi",
+    "desc": "Vivaldi browser find shortcut",
+    "keymap": [
+      "ctrl",
+      "f"
+    ]
+  },
+  {
+    "name": "dolphin",
+    "desc": "Dolphin file manager open shortcut",
+    "keymap": [
+      "meta",
+      "e"
+    ]
+  },
+  {
+    "name": "terminator",
+    "desc": "Terminator terminal new tab shortcut",
+    "keymap": [
+      "ctrl",
+      "shift",
+      "t"
+    ]
+  },
+  {
+    "name": "vlc",
+    "desc": "VLC player preferences shortcut",
+    "keymap": [
+      "ctrl",
+      "p"
+    ]
+  }
+]

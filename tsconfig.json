@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+  },
+  "exclude": [
+    "./src/kwin_api.ts"
+  ],
+}
