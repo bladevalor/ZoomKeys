@@ -20,7 +20,6 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
-    "run": "npm run build && node ./content/code/main.js",
     "clean": "rm ./content/code/main.js"
   },
   "devDependencies": {

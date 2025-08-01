@@ -1,6 +1,6 @@
 'use strict';
 
-var kwin_compliant_keys = {
+const kwin_compliant_keys = {
     // Modifier keys - canonical form with all common aliases/variants normalized
     "shift": "Shift",
     "shft": "Shift",
@@ -70,61 +70,53 @@ var kwin_compliant_keys = {
 
 var application_configs = [
 	{
-		name: "firefox",
-		desc: "Firefox browser shortcut",
-		keymap: [
-			"alt",
-			"f"
-		]
-	},
-	{
 		name: "vivaldi",
 		desc: "Vivaldi browser find shortcut",
 		keymap: [
-			"ctrl",
-			"f"
-		]
-	},
-	{
-		name: "dolphin",
-		desc: "Dolphin file manager open shortcut",
-		keymap: [
-			"meta",
-			"e"
+			"alt",
+			"q"
 		]
 	},
 	{
 		name: "terminator",
 		desc: "Terminator terminal new tab shortcut",
 		keymap: [
-			"ctrl",
-			"shift",
-			"t"
-		]
-	},
-	{
-		name: "vlc",
-		desc: "VLC player preferences shortcut",
-		keymap: [
-			"ctrl",
-			"p"
+			"alt",
+			"w"
 		]
 	}
 ];
 
 function parse_keymaps(config_keymap) {
-    var kwin_keymap = [];
-    config_keymap.forEach(function (config_keycode) {
-        var clean_config_keycode = config_keycode.trim().toLowerCase();
-        var kwin_compliant_keycode = kwin_compliant_keys[clean_config_keycode];
+    let kwin_keymap = [];
+    config_keymap.forEach(config_keycode => {
+        const clean_config_keycode = config_keycode.trim().toLowerCase();
+        const kwin_compliant_keycode = kwin_compliant_keys[clean_config_keycode];
         kwin_keymap.push(kwin_compliant_keycode);
     });
     return kwin_keymap.join("+");
 }
-var windows = workspace.windowList();
-windows.forEach(function (window) {
-    print(window.resourceClass, "***", window.resourceName);
-});
-application_configs.forEach(function (app) {
-    print(app.name, " => ", parse_keymaps(app.keymap));
+function gigaSwitcher(application) {
+    let application_windows = workspace.windowList().filter((matched_application) => {
+        return matched_application.resourceClass.toLowerCase().includes(application.toLowerCase());
+    });
+    if (application_windows.length < 1) {
+        print("launching intended");
+    }
+    let active = workspace.activeClient;
+    if (active && application_windows.some(app => app.resourceName === active.resourceClass)) {
+        let idx = application_windows.indexOf(active);
+        let nextWin = application_windows[(idx + 1) % application_windows.length];
+        workspace.activeClient = nextWin;
+        workspace.raiseWindow(nextWin);
+    }
+    else {
+        workspace.activeClient = application_windows[0];
+        workspace.raiseWindow(application_windows[0]);
+    }
+}
+application_configs.forEach(app => {
+    registerShortcut(app.name, app.desc, parse_keymaps(app.keymap), () => {
+        gigaSwitcher(app.name);
+    });
 });

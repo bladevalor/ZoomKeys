@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    // "lib": [
+    //   "ES6"
+    // ],
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
   },
-  "exclude": [
-    "./src/kwin_api.ts"
-  ],
 }

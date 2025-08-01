@@ -11,11 +11,29 @@ function parse_keymaps(config_keymap: string[]) {
   return kwin_keymap.join("+")
 }
 
-let windows = workspace.windowList();
-windows.forEach(window => {
-  print(window.resourceClass, "***", window.resourceName);
-});
+function gigaSwitcher(application: string) {
+  let application_windows = workspace.windowList().filter((matched_application) => {
+    return matched_application.resourceClass.toLowerCase().includes(application.toLowerCase());
+  })
+  if (application_windows.length < 1) {
+    print("launching intended");
+  }
+
+  let active = workspace.activeClient;
+  if (active && application_windows.some(app => app.resourceName === active.resourceClass)) {
+    let idx = application_windows.indexOf(active);
+    let nextWin = application_windows[(idx + 1) % application_windows.length];
+    workspace.activeClient = nextWin;
+    workspace.raiseWindow(nextWin);
+  } else {
+    workspace.activeClient = application_windows[0];
+    workspace.raiseWindow(application_windows[0]);
+  }
+}
+
 
 application_configs.forEach(app => {
-  print(app.name, " => ", parse_keymaps(app.keymap));
+  registerShortcut(app.name, app.desc, parse_keymaps(app.keymap), () => {
+    gigaSwitcher(app.name)
+  })
 });

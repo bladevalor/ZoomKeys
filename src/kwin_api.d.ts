@@ -61,7 +61,7 @@ declare class Client {
   static isX11Client(): boolean;
 }
 
-declare class workspace {
+declare const workspace: {
   // PARAMS
   activeClient: Client | null;
   activeScreen: number;
@@ -74,19 +74,15 @@ declare class workspace {
   activeClientChanged: Signal<[]>;
 
   // METHODS
-  static raiseWindow(client: Client): void;
-  static activateClient(client: Client, option?: boolean): void;
-  static moveClientToDesktop(client: Client, desktop: number): void;
-  static moveClientToScreen(client: Client, screen: number): void;
-  static sendClientToScreen(client: Client, screen: number): void;
-  static switchDesktop(desktop: number): void;
-  static switchScreen(screen: number): void;
-  /**
-   * returns the list of open windows in the current workspace
-   * @returns Client[]
-   */
-  static windowList(): Client[];
-  static tiledClients(): Client[];
-  static raiseWindowToTop(client: Client): void;
-  static clientFilter(filterFn: (client: Client) => boolean): Client[];
+  raiseWindow(client: Client): void;
+  activateClient(client: Client, option?: boolean): void;
+  moveClientToDesktop(client: Client, desktop: number): void;
+  moveClientToScreen(client: Client, screen: number): void;
+  sendClientToScreen(client: Client, screen: number): void;
+  switchDesktop(desktop: number): void;
+  switchScreen(screen: number): void;
+  windowList(): Client[];
+  tiledClients(): Client[];
+  raiseWindowToTop(client: Client): void;
+  clientFilter(filterFn: (client: Client) => boolean): Client[];
 }
