@@ -15,25 +15,25 @@ function gigaSwitcher(application: string) {
   let application_windows = workspace.windowList().filter((matched_application) => {
     return matched_application.resourceClass.toLowerCase().includes(application.toLowerCase());
   })
-  if (application_windows.length < 1) {
-    print("launching intended");
-  }
+  let application_ids = application_windows.map(app => app.internalId);
 
-  let active = workspace.activeClient;
-  if (active && application_windows.some(app => app.resourceName === active.resourceClass)) {
-    let idx = application_windows.indexOf(active);
-    let nextWin = application_windows[(idx + 1) % application_windows.length];
-    workspace.activeClient = nextWin;
+  let active_window = workspace.activeWindow;
+  if (application_windows.some(app => app.resourceClass == active_window.resourceClass)) {
+    // windows of same application
+    let pos = application_ids.indexOf(active_window.internalId);
+    let nextWin_idx = (pos + 1) % application_windows.length
+    let nextWin = application_windows[nextWin_idx];
     workspace.raiseWindow(nextWin);
+    workspace.activeWindow = nextWin;
   } else {
-    workspace.activeClient = application_windows[0];
     workspace.raiseWindow(application_windows[0]);
+    workspace.activeWindow = application_windows[0];
   }
 }
-
 
 application_configs.forEach(app => {
   registerShortcut(app.name, app.desc, parse_keymaps(app.keymap), () => {
     gigaSwitcher(app.name)
   })
 });
+
