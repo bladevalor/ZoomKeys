@@ -20,7 +20,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
-    "clean": "rm ./content/code/main.js"
+    "install": "kpackagetool6 -t KWin/Script -i .",
+    "update": "kpackagetool6 -t KWin/Script -u ."
   },
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0",
