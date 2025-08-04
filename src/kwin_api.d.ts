@@ -26,6 +26,7 @@ declare class Signal<TArgs extends any[] = any[]> {
 
 declare class Client {
   resourceClass: string;       // WM_CLASS resource class string
+  internalId: string;
   resourceName: string;
   windowRole: string;
   windowType: number;          // Enum value for window type
@@ -63,7 +64,7 @@ declare class Client {
 
 declare const workspace: {
   // PARAMS
-  activeClient: Client | null;
+  activeWindow: Client | null;
   activeScreen: number;
   activeDesktop: number;
   numberOfDesktops: number;
