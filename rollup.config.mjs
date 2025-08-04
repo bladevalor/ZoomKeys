@@ -4,7 +4,7 @@ import json from "@rollup/plugin-json";
 export default {
   input: "src/index.ts",
   output: {
-    file: "./content/code/main.js",
+    file: "./contents/code/main.js",
     name: "ZoomKeys",
     format: "cjs"
   },
